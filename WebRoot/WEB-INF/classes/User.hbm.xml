@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.hibernate.test.naturalid.immutable">
+
+    <class name="com.cw.Entity.User" table="user" >
+        <id name="id" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="password" />
+        <property name="username"/>
+    </class>
+
+</hibernate-mapping>
