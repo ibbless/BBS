@@ -9,8 +9,8 @@
         <id name="id" type="long">
             <generator class="native"/>
         </id>
-        <property name="password" />
         <property name="username"/>
+        <property name="password" />
     </class>
 
 </hibernate-mapping>

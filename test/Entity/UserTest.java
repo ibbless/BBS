@@ -7,7 +7,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.junit.Test;
 
-public class LoginTest {
+public class UserTest {
 
 	@Test
 	public void test() {

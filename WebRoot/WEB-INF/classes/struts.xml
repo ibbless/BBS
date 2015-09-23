@@ -5,12 +5,18 @@
 
 <struts>
 
-    <package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="struts-default">
+		<default-action-ref name="index" />
+	</package>
 
-        <default-action-ref name="index" />
-
-    </package>
-
-    <!-- Add packages here -->
+	<!-- Add packages here -->
+	<package name="user" namespace="/user" extends="default">
+		<action name="*_*" class="com.cw.action.{1}Action" method="{2}">
+			<result name="LOGIN_SUCCESS">/jsp/user/Login.jsp</result>
+			<result name="REGISTRY_SUCCESS">/jsp/user/Registry.jsp</result>
+			<result name="LOGIN_FAILED">/jsp/user/Login.jsp</result>
+			<result name="REGISTRY_FAILED">/jsp/user/Registry.jsp</result>
+		</action>
+	</package>
 
 </struts>
