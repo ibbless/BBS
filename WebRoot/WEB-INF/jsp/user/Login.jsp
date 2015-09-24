@@ -10,7 +10,7 @@
 <body>
 	<s:actionmessage/>
 	<br />
-	<form action="<%=request.getContextPath()%>/user/User_Login" method="post">
+	<form action="<%=request.getContextPath()%>/User_LoginCheck" method="post">
 		用户名:<input type="text" name="username" /><br /> 密码:<input
 			type="password" name="password" /><br /> <input type="submit"
 			value="登录" /> <input type="reset" value="清空" /><br />

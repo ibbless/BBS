@@ -6,16 +6,35 @@
 <struts>
 
 	<package name="default" namespace="/" extends="struts-default">
+
+
 		<default-action-ref name="index" />
 	</package>
 
 	<!-- Add packages here -->
-	<package name="user" namespace="/user" extends="default">
+	<package name="main" namespace="/" extends="default">
+		<interceptors>
+			<interceptor name="privilegeCheck" class="com.cw.Util.PrivilegeCheck"></interceptor>
+			<interceptor-stack name="defaultStack">
+				<interceptor-ref name="privilegeCheck"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
 		<action name="*_*" class="com.cw.action.{1}Action" method="{2}">
-			<result name="LOGIN_SUCCESS">/jsp/user/Login.jsp</result>
-			<result name="REGISTRY_SUCCESS">/jsp/user/Registry.jsp</result>
-			<result name="LOGIN_FAILED">/jsp/user/Login.jsp</result>
-			<result name="REGISTRY_FAILED">/jsp/user/Registry.jsp</result>
+			<result name="LOGIN_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="REGISTRY_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="LOGIN_FAILED">/WEB-INF/jsp/user/Login.jsp</result>
+			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
+			<result name="LOGOUT">/WEB-INF/jsp/user/Login.jsp</result>
+			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
+			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+		</action>
+	</package>
+
+	<package name="login" namespace="/" extends="default">
+		<action name="User_LoginCheck" class="com.cw.action.UserAction" method="LoginCheck">
+			<result name="LOGIN_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="LOGIN_FAILED">/WEB-INF/jsp/user/Login.jsp</result>
 		</action>
 	</package>
 

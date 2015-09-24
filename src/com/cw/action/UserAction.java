@@ -1,5 +1,7 @@
 package com.cw.action;
 
+import org.hibernate.Session;
+
 import com.cw.Entity.User;
 import com.cw.service.UserDAO;
 import com.cw.service.impl.UserDAOImpl;
@@ -13,18 +15,22 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 	private static final long serialVersionUID = 1L;
 	User user = new User();
 	
-	public String Login(){
+	public String LoginCheck(){
 		UserDAO userDao = new UserDAOImpl();
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
 		if(userDao.userLogin(user)){
-			addActionMessage("success");
+			session.setAttribute("username", request.getParameter("username"));
+			
 			return "LOGIN_SUCCESS";
 		}
 		else{
 			this.addActionMessage("failed");
 			return "LOGIN_FAILED";
 		}
+	}
+	public String Login(){
+		return "LOGIN";
 	}
 	public String Registry(){
 		UserDAO userDao = new UserDAOImpl();
@@ -47,10 +53,14 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 			user.setUsername(username);
 			user.setPassword(password1);
 			userDao.userRegistry(user);
-			addActionMessage("success!!!!!!");
+			session.setAttribute("username", username);
 			return "REGISTRY_SUCCESS";
 		}
 		
+	}
+	public String Logout(){
+		session.removeAttribute("username");
+		return "LOGOUT";
 	}
 	
 	@Override
