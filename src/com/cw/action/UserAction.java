@@ -1,9 +1,12 @@
 package com.cw.action;
 
-import org.hibernate.Session;
+import java.util.List;
 
+import com.cw.Entity.Article;
 import com.cw.Entity.User;
+import com.cw.service.ArticleDao;
 import com.cw.service.UserDAO;
+import com.cw.service.impl.ArticleDaoImpl;
 import com.cw.service.impl.UserDAOImpl;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -14,26 +17,28 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 	 */
 	private static final long serialVersionUID = 1L;
 	User user = new User();
+	UserDAO userDao = new UserDAOImpl();
+	ArticleDao articleDao = new ArticleDaoImpl();
 	
 	public String LoginCheck(){
-		UserDAO userDao = new UserDAOImpl();
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
 		if(userDao.userLogin(user)){
 			session.setAttribute("username", request.getParameter("username"));
-			
-			return "LOGIN_SUCCESS";
+			List<Article> list = articleDao.getAll();
+			request.setAttribute("list", list);
+			return "HOME";
 		}
 		else{
 			this.addActionMessage("failed");
-			return "LOGIN_FAILED";
+			return "LOGIN";
 		}
 	}
 	public String Login(){
 		return "LOGIN";
 	}
-	public String Registry(){
-		UserDAO userDao = new UserDAOImpl();
+	public String RegistryCheck(){
+
 		String username = request.getParameter("username");
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
@@ -54,13 +59,17 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 			user.setPassword(password1);
 			userDao.userRegistry(user);
 			session.setAttribute("username", username);
-			return "REGISTRY_SUCCESS";
+			List<Article> list = articleDao.getAll();
+			request.setAttribute("list", list);
+			return "HOME";
 		}
-		
+	}
+	public String Registry(){
+		return "REGISTRY";
 	}
 	public String Logout(){
 		session.removeAttribute("username");
-		return "LOGOUT";
+		return "LOGIN";
 	}
 	
 	@Override

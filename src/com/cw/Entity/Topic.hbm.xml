@@ -5,14 +5,14 @@
 
 <hibernate-mapping package="org.hibernate.test.naturalid.immutable">
 
-	<class name="com.cw.Entity.Topic" table="topic">
+	<class name="com.cw.Entity.Topic" table="topic" lazy="false">
 		<id name="id">
 			<generator class="native" />
 		</id>
 		<property name="title" />
 		<property name="content" type="text" length="65536" />
 		<property name="postTime" type="timestamp" />
-		<many-to-one name="author" class="com.cw.Entity.User" column="authorId"></many-to-one>
+		<many-to-one name="author" class="com.cw.Entity.User" column="authorId" lazy="false"></many-to-one>
 		<set name="replies">
 			<key column="topicId"></key>
 			<one-to-many class="com.cw.Entity.Reply" />

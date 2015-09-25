@@ -9,12 +9,12 @@
 </head>
 <body>
 	<s:actionmessage/><br>
-	<form action="<%=request.getContextPath() %>/user/User_Registry" method="post">
+	<form action="<%=request.getContextPath() %>/user/User_RegistryCheck" method="post">
 	用户名:<input type="text" name="username"/><br/>
 	密码:<input type="password" name="password1"/><br/>
 	请再输一次密码:<input type="password" name="password2"/><br/>
     <input type="submit"value="注册"/>
-    <input type="reset"value="清空"/><br/>
+    <input type="reset"value="清空"/><br/>     
 	</form>
 	
 	

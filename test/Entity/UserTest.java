@@ -15,6 +15,7 @@ public class UserTest {
 		ServiceRegistry regestry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
 		SessionFactory sf = cfg.buildSessionFactory(regestry);
 		Session session = sf.getCurrentSession();
+		@SuppressWarnings("deprecation")
 		SchemaExport export = new SchemaExport(cfg);
 		
 		export.create(true, true);

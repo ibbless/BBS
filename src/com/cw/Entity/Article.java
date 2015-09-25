@@ -1,18 +1,18 @@
 package com.cw.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Article {
 	private int id;
-	private String author;
+	private User author;
 	private Date postTime;
 	private String content;
 
-	public String getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 
@@ -38,6 +38,12 @@ public class Article {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", author=" + author + ", postTime="
+				+ postTime + ", content=" + content + "]";
 	}
 
 }

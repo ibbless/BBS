@@ -21,20 +21,26 @@
 			</interceptor-stack>
 		</interceptors>
 		<action name="*_*" class="com.cw.action.{1}Action" method="{2}">
-			<result name="LOGIN_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
-			<result name="REGISTRY_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
-			<result name="LOGIN_FAILED">/WEB-INF/jsp/user/Login.jsp</result>
 			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
-			<result name="LOGOUT">/WEB-INF/jsp/user/Login.jsp</result>
 			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
 			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
 		</action>
 	</package>
 
-	<package name="login" namespace="/" extends="default">
-		<action name="User_LoginCheck" class="com.cw.action.UserAction" method="LoginCheck">
-			<result name="LOGIN_SUCCESS">/WEB-INF/jsp/title/Home.jsp</result>
-			<result name="LOGIN_FAILED">/WEB-INF/jsp/user/Login.jsp</result>
+	<package name="check" namespace="/" extends="default">
+		<action name="User_LoginCheck" class="com.cw.action.UserAction"
+			method="LoginCheck">
+			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
+		</action>
+		<action name="User_RegistryCheck" class="com.cw.action.UserAction"
+			method="RegistryCheck">
+			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
+		</action>
+		<action name="User_Registry" class="com.cw.action.UserAction"
+			method="Registry">
+			<result name="REGISTRY">/WEB-INF/jsp/user/Registry.jsp</result>
 		</action>
 	</package>
 

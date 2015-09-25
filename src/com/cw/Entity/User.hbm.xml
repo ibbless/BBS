@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="org.hibernate.test.naturalid.immutable">
 
-    <class name="com.cw.Entity.User" table="user" >
+    <class name="com.cw.Entity.User" table="user" lazy="false" >
         <id name="id" >
             <generator class="native"/>
         </id>
