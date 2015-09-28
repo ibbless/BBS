@@ -20,23 +20,38 @@
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
-		<action name="*_*" class="com.cw.action.{1}Action" method="{2}">
+		<action name="HOME" class="com.cw.action.TopicAction" method="Home">
+			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
+		</action>
+		<action name="User_*" class="com.cw.action.UserAction" method="{1}">
 			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
 			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
-			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="HOME" type="redirectAction">HOME</result>
 		</action>
+		<action name="Topic_Show" class="com.cw.action.TopicAction"
+			method="ShowTopic">
+			<result name="TOPIC_VIEW">/WEB-INF/jsp/title/Topic.jsp</result>
+		</action>
+		<action name="Reply_*" class="com.cw.action.ReplyAction" method="{1}">
+			<result name="DELETE">/WEB-INF/jsp/title/Delete_Success.jsp</result>
+			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
+			<result name="HOME" type="redirectAction">HOME</result>
+		</action>
+
 	</package>
 
 	<package name="check" namespace="/" extends="default">
 		<action name="User_LoginCheck" class="com.cw.action.UserAction"
 			method="LoginCheck">
-			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
+			<result name="HOME" type="redirectAction">HOME</result>
 			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
 		</action>
 		<action name="User_RegistryCheck" class="com.cw.action.UserAction"
 			method="RegistryCheck">
-			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
-			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
+			<result name="HOME" type="redirectAction">HOME</result>
+			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp
+			</result>
 		</action>
 		<action name="User_Registry" class="com.cw.action.UserAction"
 			method="Registry">

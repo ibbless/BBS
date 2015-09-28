@@ -10,9 +10,10 @@
 	欢迎你，${sessionScope.username }
 	<a href="<%=request.getContextPath()%>/user/User_Logout.action">注销</a>
 	<br />
-		<s:iterator value="#request.list" id="list" status="rowstatus">
-			<span><s:property value="#list.content" /></span>
-			<span><s:property value="#list.postTime" /></span>
+		<s:iterator value="list" id="list" status="rowstatus">
+			标题：<s:a action="Topic_Show?TopicId=%{id }"><span>${title }</span></s:a><br/>
+			内容：<span>${content }</span><br/>
+			date:<span>${postTime}</span><br/>
 		</s:iterator>
 
 </body>

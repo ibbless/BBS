@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import com.cw.Entity.Article;
 import com.cw.Entity.Reply;
 import com.cw.Entity.Topic;
-import com.cw.Entity.User;
 import com.cw.Util.MyHSessionFactory;
 import com.cw.service.ArticleDao;
 
@@ -21,7 +20,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public List<Article> getAll() {
 		tx = session.beginTransaction();
-		String hql = "from Topic";
+		String hql = "from Topic t order by t.postTime";
 		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<Article> list = query.list();
@@ -34,7 +33,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public List<Article> getReply(Topic topic) {
 		tx = session.beginTransaction();
-		String hql = "from Reply where topicId = ? oder by postTime";
+		String hql = "from Reply where topicId = ? order by postTime";
 		Query query = session.createQuery(hql);
 		query.setParameter(0,topic.getId());
 		tx.commit();
@@ -57,6 +56,39 @@ public class ArticleDaoImpl implements ArticleDao {
 		session.save(reply);
 		tx.commit();
 		
+	}
+
+
+	@Override
+	public Topic getTopic(int id) {
+		tx = session.beginTransaction();
+		Topic topic = new Topic();
+		topic.setId(id);
+		String hql = "from Topic where id = ?";
+		Query query = session.createQuery(hql).setParameter(0, topic.getId());
+		Topic result = (Topic) query.list().get(0);
+		tx.commit();
+		return result;
+	}
+
+
+	@Override
+	public void deleteTopic(Topic topic) {
+		tx = session.beginTransaction();
+		String hql = "delete from Topic where id = ?";
+		Query query = session.createQuery(hql).setParameter(0, topic.getId());
+		query.executeUpdate();
+		tx.commit();
+	}
+
+
+	@Override
+	public void deleteReply(Reply reply) {
+		tx = session.beginTransaction();
+		String hql = "delete from Reply where id = ?";
+		Query query = session.createQuery(hql).setParameter(0, reply.getId());
+		query.executeUpdate();
+		tx.commit();
 	}
 
 }

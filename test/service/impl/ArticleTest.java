@@ -40,4 +40,8 @@ public class ArticleTest {
 		r.setTopic(t);
 		a.saveReply(r);
 	}
+	@Test
+	public void getTopic(){
+		System.out.println(a.getTopic(1));
+	}
 }

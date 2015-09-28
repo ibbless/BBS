@@ -25,7 +25,7 @@ public class PrivilegeCheck implements Interceptor {
 		String username = (String) ActionContext.getContext().getSession().get("username");
 		if(username==null||username.equals("")){
 			((ActionSupport)invocation.getAction()).addActionMessage("ÇëÏÈµÇÂ¼");
-			return "LOGIN_FAILED";
+			return "LOGIN";
 		}else{
 		String result = invocation.invoke();
 		

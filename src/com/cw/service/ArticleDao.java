@@ -11,5 +11,8 @@ public interface ArticleDao {
 		public List<Article> getReply(Topic topic);
 		public void saveTopic(Topic topic);
 		public void saveReply(Reply reply);
+		public Topic getTopic(int id);
+		public void deleteTopic(Topic topic);
+		public void deleteReply(Reply reply);
 		
 }

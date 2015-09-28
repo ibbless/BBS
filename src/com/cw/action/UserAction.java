@@ -25,8 +25,6 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 		user.setPassword(request.getParameter("password"));
 		if(userDao.userLogin(user)){
 			session.setAttribute("username", request.getParameter("username"));
-			List<Article> list = articleDao.getAll();
-			request.setAttribute("list", list);
 			return "HOME";
 		}
 		else{
@@ -59,8 +57,6 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 			user.setPassword(password1);
 			userDao.userRegistry(user);
 			session.setAttribute("username", username);
-			List<Article> list = articleDao.getAll();
-			request.setAttribute("list", list);
 			return "HOME";
 		}
 	}
