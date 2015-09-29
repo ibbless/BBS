@@ -22,21 +22,25 @@
 		</interceptors>
 		<action name="HOME" class="com.cw.action.TopicAction" method="Home">
 			<result name="HOME">/WEB-INF/jsp/title/Home.jsp</result>
-			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
+			<result name="LOGIN">/WEB-INF/jsp/Login.jsp</result>
+		</action>
+		<action name="lastPage" class="com.cw.action.TopicAction" method="lastPage">
+			<result name="LASTPAGE">/WEB-INF/jsp/lastPage.jsp</result>
 		</action>
 		<action name="User_*" class="com.cw.action.UserAction" method="{1}">
 			<result name="LOGIN">/WEB-INF/jsp/user/Login.jsp</result>
 			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
 			<result name="HOME" type="redirectAction">HOME</result>
 		</action>
-		<action name="Topic_Show" class="com.cw.action.TopicAction"
-			method="ShowTopic">
+		<action name="Topic_*" class="com.cw.action.TopicAction"
+			method="{1}">
 			<result name="TOPIC_VIEW">/WEB-INF/jsp/title/Topic.jsp</result>
 		</action>
 		<action name="Reply_*" class="com.cw.action.ReplyAction" method="{1}">
 			<result name="DELETE">/WEB-INF/jsp/title/Delete_Success.jsp</result>
 			<result name="REGISTRY_FAILED">/WEB-INF/jsp/user/Registry.jsp</result>
 			<result name="HOME" type="redirectAction">HOME</result>
+			<result name="SAVE" type="redirectAction">lastPage</result>
 		</action>
 
 	</package>

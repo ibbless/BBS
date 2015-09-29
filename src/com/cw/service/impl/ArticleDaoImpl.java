@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.cw.Entity.Article;
+import com.cw.Entity.PageBean;
 import com.cw.Entity.Reply;
 import com.cw.Entity.Topic;
 import com.cw.Util.MyHSessionFactory;
@@ -17,6 +18,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	Session session = MyHSessionFactory.getSessionFactory().openSession();
 	Transaction tx = null;
+
 	@Override
 	public List<Article> getAll() {
 		tx = session.beginTransaction();
@@ -27,7 +29,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		tx.commit();
 		return list;
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -35,7 +36,7 @@ public class ArticleDaoImpl implements ArticleDao {
 		tx = session.beginTransaction();
 		String hql = "from Reply where topicId = ? order by postTime";
 		Query query = session.createQuery(hql);
-		query.setParameter(0,topic.getId());
+		query.setParameter(0, topic.getId());
 		tx.commit();
 		return query.list();
 	}
@@ -46,7 +47,7 @@ public class ArticleDaoImpl implements ArticleDao {
 		topic.setPostTime(new Date());
 		session.save(topic);
 		tx.commit();
-		
+
 	}
 
 	@Override
@@ -55,9 +56,8 @@ public class ArticleDaoImpl implements ArticleDao {
 		reply.setPostTime(new Date());
 		session.save(reply);
 		tx.commit();
-		
-	}
 
+	}
 
 	@Override
 	public Topic getTopic(int id) {
@@ -71,7 +71,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		return result;
 	}
 
-
 	@Override
 	public void deleteTopic(Topic topic) {
 		tx = session.beginTransaction();
@@ -81,7 +80,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		tx.commit();
 	}
 
-
 	@Override
 	public void deleteReply(Reply reply) {
 		tx = session.beginTransaction();
@@ -89,6 +87,19 @@ public class ArticleDaoImpl implements ArticleDao {
 		Query query = session.createQuery(hql).setParameter(0, reply.getId());
 		query.executeUpdate();
 		tx.commit();
+	}
+
+	@Override
+	public PageBean getPageBeanByTopic(int pageNum, int pageSize, Topic topic) {
+		String hql = "from Reply where topicId = ? order by postTime";
+		List list = session.createQuery(hql).setParameter(0, topic.getId())
+				.setFirstResult((pageNum - 1) * pageSize)
+				.setMaxResults(pageSize).list();
+		Long count = (Long) session
+				.createQuery("select count(*) from Reply where topicId = ?")
+				.setParameter(0, topic.getId()).uniqueResult();
+		
+		return new PageBean(list,pageNum,pageSize,count.intValue());
 	}
 
 }

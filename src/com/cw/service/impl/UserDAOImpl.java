@@ -49,6 +49,12 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return false;
 	}
+
+	@Override
+	public User getUserByName(String username) {
+		return (User) session.createQuery("from User where username = ?").setParameter(0, username).uniqueResult();
+	}
+	
 	
 
 }
